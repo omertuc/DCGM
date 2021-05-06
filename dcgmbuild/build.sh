@@ -4,8 +4,9 @@ set -ex
 
 DIR=$(dirname $(realpath $0))
 
-docker build --force-rm --no-cache --rm -t dcgmmetabuild:latest -f Metabuild.dockerfile $DIR/
+docker build --rm -t dcgmmetabuild:latest -f Metabuild.dockerfile $DIR/
 docker run \
+    --ulimit nofile=2048:2048 \
     -v /var/run/docker.sock:/var/run/docker.sock:rw \
     -v "$DIR":"$DIR" \
     -w "$DIR" \
