@@ -13,7 +13,7 @@ docker run \
     -i \
     dcgmmetabuild:latest \
         bash -c "set -ex; \
-            docker build -t dcgmbuild $DIR/; \
+            docker build --ulimit nofile=2048:2048 -t dcgmbuild $DIR/; \
             docker-squash -t dcgmbuild dcgmbuild"
 
 docker container prune -f
